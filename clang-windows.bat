@@ -33,7 +33,7 @@ set ROOTDIR=llvm
 set BUILDDIR=build-%BUILDTOOL%-%BUILD_ARCH%
 set DIR=%~dp0
 
-pushd %DIR%
+cd /d %DIR%
 
 if exist %ROOTDIR% (
 	svn update  %ROOTDIR%
@@ -97,7 +97,7 @@ if "%BUILD_ACTION%" == "rebuild" (
 	if not exist %BUILDDIR% mkdir %BUILDDIR%
 )
 
-pushd %BUILDDIR%
+cd %BUILDDIR%
 
 del /Q LLVM-*.exe
 
@@ -110,6 +110,8 @@ if "%BUILDTOOL%" == "ninja" (
 	"C:\Program Files\CMake\bin\cmake.exe" -G %CMAKE_GENERATOR% -D CMAKE_INSTALL_PREFIX=c:\clang
 	"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.com" LLVM.sln  /build "Release|Win32"
 )
+
+cd /d %DIR%
 
 exit /b %ERRORLEVEL%
 
